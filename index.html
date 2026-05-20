@@ -6,237 +6,175 @@
 -->
 <html>
 	<head>
-		<title>Vyniece Kyle Austria</title>
+		<title>Vyniece Kyle Austria | Scrapbook Portfolio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		
+		<!-- Google Fonts for the Scrapbook Vibe -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+
+		<!-- Custom Scrapbook Styling Overrides -->
+		<style>
+			/* Give the main background a subtle paper-like warmth */
+			body {
+				background-color: #fcfaf2; 
+			}
+
+			/* Turn each feature section into a loose scrapbook card */
+			.feature {
+				background: #ffffff;
+				padding: 25px !important;
+				margin-bottom: 50px !important;
+				border-radius: 4px;
+				box-shadow: 3px 5px 15px rgba(0,0,0,0.08), 0 0 40px rgba(0,0,0,0.03) inset;
+				border: 1px solid #efebe0;
+				position: relative;
+			}
+
+			/* Slight paper rotations to make it look scattered/hand-placed */
+			.feature.left {
+				transform: rotate(-1deg);
+			}
+			.feature.right {
+				transform: rotate(1.5deg);
+			}
+
+			/* Transform images into classic white-bordered Polaroid photos */
+			.feature .image.fit {
+				background: #ffffff;
+				padding: 12px 12px 35px 12px; /* Thick bottom border like a polaroid */
+				box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+				border: 1px solid #e2ded5;
+				margin-bottom: 20px;
+				display: inline-block;
+			}
+
+			/* Polaroid tilt variations */
+			.feature.left .image.fit { transform: rotate(2deg); }
+			.feature.right .image.fit { transform: rotate(-2.5deg); }
+
+			/* Fonts for the scrapbook "handwritten notes" feel */
+			.feature h3 {
+				font-family: 'Kalam', cursive;
+				font-weight: 700;
+				color: #4a3e3d;
+				letter-spacing: 0px;
+				text-transform: none;
+				font-size: 1.8rem;
+			}
+
+			.feature p, .feature ul {
+				font-family: 'Kalam', cursive;
+				font-weight: 400;
+				color: #5c5150;
+				font-size: 1.25rem;
+				line-height: 1.6;
+			}
+
+			/* "Washi Tape" effect pinned to the top of each card */
+			.feature::before {
+				content: "";
+				position: absolute;
+				top: -15px;
+				left: 40%;
+				width: 100px;
+				height: 30px;
+				background-color: rgba(210, 180, 140, 0.4); /* Translucent masking tape */
+				transform: rotate(-3deg);
+				box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+			}
+			
+			.feature.right::before {
+				left: 45%;
+				background-color: rgba(176, 196, 222, 0.4); /* Alternating tape color */
+				transform: rotate(4deg);
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
 		<!-- Header -->
 			<div id="header">
-				<video width="700" controls>
-				<source src="vyniece.mp4?autoplay" type="video/mp4" allow="accelarometer; autoplay; clipboard-write; encrypted-medial; gyroscope; picture-in-picture" allowfullscreen></video>
+				<video width="700" controls muted>
+					<source src="vyniece.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
 				<h1>Vyniece Kyle P. Austria</h1>
-				<p>A fresh Finance graduate with a strong interest in financial operations and business management. I enjoy working with others, 
-					<br>
-					staying organized, and learning new things that help me adapt in any environment. I’m excited to take the next step and bring my energy, 
-					<br> 
-					reliability, and curiosity into the professional world.
-				<br />
-				
+				<p>A fresh Finance graduate with a strong interest in financial operations and business management. 
+				I enjoy working with others, staying organized, and learning new things to adapt to any environment. 
+				Excited to bring my energy, reliability, and curiosity into the professional world.</p>
 			</div>
 
 		<!-- Main -->
 			<div id="main">
 
 				<header class="major container medium">
-					<h2>January 30, 2003
-					<br />
-					Male
-					<br />
-					Single
-					<br />
-					Filipino
-					<br />
-					Catholic</h2>
-					<!--
-					<p>Tellus erat mauris ipsum fermentum<br />
-					etiam vivamus nunc nibh morbi.</p>
-					-->
+					<h2>Personal Profile</h2>
+					<p style="font-family: 'Kalam', cursive; font-size: 1.3rem;">
+						📌 <strong>Birthdate:</strong> January 30, 2003 &nbsp;|&nbsp; 
+						🇵🇭 <strong>Nationality:</strong> Filipino &nbsp;|&nbsp; 
+						📍 <strong>Location:</strong> Davao City, Philippines
+					</p>
 				</header>
 
 				<div class="box alt container">
+					
+					<!-- Education -->
 					<section class="feature left">
-						<a href="#" class="image fit"><img src="images/toga.JPG" alt="" /></a>
+						<a href="#" class="image fit"><img src="images/toga.JPG" alt="Graduation Portrait" /></a>
 						<div class="content">
-							<h3>Education</h3>
-							<p>Holds a degree in Business Administration major in Financial Management from Assumption College of Davao, where I graduated with a Special Academic Award and gained practical experience in banking, financial analysis, and administrative tasks through my internship at Enterprise Bank Inc.</p>
+							<h3>My Education Story</h3>
+							<p>Holds a degree in Business Administration, major in Financial Management from the Assumption College of Davao. Graduated with a Special Academic Award, developing a strong foundation in corporate finance, asset management, and strategic planning.</p>
 						</div>
 					</section>
+
+					<!-- Awards -->
 					<section class="feature right">
-						<a href="#" class="image fit"><img src="images/me.JPG" alt="" /></a>
+						<a href="#" class="image fit"><img src="images/me.JPG" alt="Awards and Activities" /></a>
 						<div class="content">
-							<h3>Awards and Activities</h3>
-							<p>Dean’s Lister (2021-2025)
-								<br />
-								First Placer - Quiz Bowl (2024)
-								<br />
-								Champion - FB Wars (2024) </p>
+							<h3>Awards &amp; Highlights</h3>
+							<ul style="list-style: none; padding-left: 0; text-align: left;">
+								<li>🏅 <strong>Dean’s Lister</strong> (2021–2025)</li>
+								<li>🥇 <strong>First Placer</strong> – Quiz Bowl (2024)</li>
+								<li>🏆 <strong>Champion</strong> – FB Wars (2024)</li>
+							</ul>
 						</div>
 					</section>
+
+					<!-- Experience -->
 					<section class="feature left">
-						<a href="#" class="image fit"><img src="images/intern.JPG" alt="" /></a>
+						<a href="#" class="image fit"><img src="images/intern.JPG" alt="Internship Experience" /></a>
 						<div class="content">
-							<h4>Pre-Professional Experience</h4>
-							<p>During my internship at Enterprise Bank Inc., I supported financial operations by analyzing client financial statements, reconciling head office and branch bank accounts, and performing data entry for internal reports. This experience strengthened my skills in financial analysis, accuracy, and administrative efficiency. </p>
+							<h3>The Internship Days</h3>
+							<p>During my internship at Enterprise Bank Inc., I actively supported day-to-day financial operations. Key responsibilities included analyzing client financial statements, reconciling branch accounts with the head office, and handling data entry for critical internal reports—sharpening my administrative accuracy and analytical efficiency.</p>
 						</div>
 					</section>
+
+					<!-- Skills -->
 					<section class="feature right">
-						<a href="#" class="image fit"><img src="images/barong.JPG" alt="" /></a>
+						<a href="#" class="image fit"><img src="images/barong.JPG" alt="Professional Attire" /></a>
 						<div class="content">
-							<h3>Top Skills</h3>
-							<p>Strong communication and interpersonal skills
-								<br />
-								Ability to adapt in dynamic environments
-								<br />
-								Excellent time management and organization
-								<br />
-								Collaborative team player
-								<br />
-								Proficient in Microsoft Office applications (Word, Excel, PowerPoint)</p>
+							<h3>My Top Skills</h3>
+							<ul style="list-style: none; padding-left: 0; text-align: left;">
+								<li>💼 Financial Statement Analysis &amp; Reconciliation</li>
+								<li>📊 Proficient in MS Office (Excel, Word, PowerPoint)</li>
+								<li>⏱️ Time Management &amp; Workplace Organization</li>
+								<li>🤝 Team Collaboration &amp; Interpersonal Communication</li>
+								<li>🌱 Highly Adaptable to Dynamic Environments</li>
+							</ul>
 						</div>
 					</section>
 				</div>
 
-				<!--
-				<div class="box container">
-					<header>
-						<h2>A lot of generic stuff</h2>
-					</header>
-					<section>
-						<header>
-							<h3>Paragraph</h3>
-							<p>This is the subtitle for this particular heading</p>
-						</header>
-						<p>Phasellus nisl nisl, varius id <sup>porttitor sed pellentesque</sup> ac orci. Pellentesque
-						habitant <strong>strong</strong> tristique <b>bold</b> et netus <i>italic</i> malesuada <em>emphasized</em> ac turpis egestas. Morbi
-						leo suscipit ut. Praesent <sub>id turpis vitae</sub> turpis pretium ultricies. Vestibulum sit
-						amet risus elit.</p>
-					</section>
-					<section>
-						<header>
-							<h3>Blockquote</h3>
-						</header>
-						<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget.
-						tempus euismod. Vestibulum ante ipsum primis in faucibus.</blockquote>
-					</section>
-					<section>
-						<header>
-							<h3>Divider</h3>
-						</header>
-						<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
-						ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
-						facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
-						tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-						posuere cubilia.</p>
-						<hr />
-						<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
-						ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
-						facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
-						tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-						posuere cubilia.</p>
-					</section>
-					<section>
-						<header>
-							<h3>Unordered List</h3>
-						</header>
-						<ul class="default">
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-						</ul>
-					</section>
-					<section>
-						<header>
-							<h3>Ordered List</h3>
-						</header>
-						<ol class="default">
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-						</ol>
-					</section>
-					<section>
-						<header>
-							<h3>Table</h3>
-						</header>
-						<div class="table-wrapper">
-							<table class="default">
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>Name</th>
-										<th>Description</th>
-										<th>Price</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>45815</td>
-										<td>Something</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>29.99</td>
-									</tr>
-									<tr>
-										<td>24524</td>
-										<td>Nothing</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>19.99</td>
-									</tr>
-									<tr>
-										<td>45815</td>
-										<td>Something</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>29.99</td>
-									</tr>
-									<tr>
-										<td>24524</td>
-										<td>Nothing</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>19.99</td>
-									</tr>
-								</tbody>
-								<tfoot>
-									<tr>
-										<td colspan="3"></td>
-										<td>100.00</td>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-					</section>
-					<section>
-						<header>
-							<h3>Form</h3>
-						</header>
-						<form method="post" action="#">
-							<div class="row">
-								<div class="col-6 col-12-mobilep">
-									<label for="name">Name</label>
-									<input class="text" type="text" name="name" id="name" value="" placeholder="John Doe" />
-								</div>
-								<div class="col-6 col-12-mobilep">
-									<label for="email">Email</label>
-									<input class="text" type="text" name="email" id="email" value="" placeholder="johndoe@domain.tld" />
-								</div>
-								<div class="col-12">
-									<label for="subject">Subject</label>
-									<input class="text" type="text" name="subject" id="subject" value="" placeholder="Enter your subject" />
-								</div>
-								<div class="col-12">
-									<label for="subject">Message</label>
-									<textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
-								</div>
-								<div class="col-12">
-									<ul class="actions special">
-										<li><input type="submit" value="Send" /></li>
-										<li><input type="reset" value="Reset" class="alt" /></li>
-									</ul>
-								</div>
-							</div>
-						</form>
-					</section>
-				</div>
-				-->
-
+				<!-- Call to Action -->
 				<footer class="major container medium">
-					<h3>Open to opportunities</h3>
-					<p>Thank you for visiting my portfolio! I'm Vyniece Kyle Austria — a Finance graduate driven by growth, collaboration, and purpose. I’m always open to new opportunities where I can apply my skills, learn from others, and make a meaningful impact. Let’s connect and build something great together!</p>
+					<h3>Open to Opportunities</h3>
+					<p>Thank you for visiting my portfolio! I am driven by growth, continuous learning, and collaborative success. I am eager to connect and explore how my financial skills and dedication can contribute value to your team.</p>
 					<ul class="actions special">
-						<li><a href="https://www.linkedin.com/in/vyniece-kyle-austria-717619366/" class="button">LinkedIn</a></li>
+						<li><a href="https://www.linkedin.com/in/vyniece-kyle-austria-717619366/" class="button" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></li>
 					</ul>
 				</footer>
 
@@ -246,16 +184,16 @@
 			<div id="footer">
 				<div class="container medium">
 
-					<p>vyniecekyle@gmail.com</p>
+					<p><strong>Email:</strong> vyniecekyle@gmail.com</p>
 					
 					<ul class="icons">
-						<li><a href="https://x.com/VynieceA" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="https://www.facebook.com/VynieceKyleAustria" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="https://www.instagram.com/austykyle/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-
+						<li><a href="https://x.com/VynieceA" class="icon brands fa-twitter" target="_blank" rel="noopener noreferrer"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.facebook.com/VynieceKyleAustria" class="icon brands fa-facebook-f" target="_blank" rel="noopener noreferrer"><span class="label">Facebook</span></a></li>
+						<li><a href="https://www.instagram.com/austykyle/" class="icon brands fa-instagram" target="_blank" rel="noopener noreferrer"><span class="label">Instagram</span></a></li>
 					</ul>
+					
 					<ul class="copyright">
-						<li>&copy; Vyniece Kyle P. Austria</li>
+						<li>&copy; Vyniece Kyle P. Austria. All rights reserved.</li>
 					</ul>
 
 				</div>
