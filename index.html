@@ -9,379 +9,219 @@
 		<title>Vyniece Kyle Austria | Scrapbook Portfolio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
 		
-		<!-- Google Fonts for the Scrapbook Vibe -->
+		<!-- Google Fonts for Scrapbook Look -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
-
-		<!-- Custom Flip-Book and Scrapbook CSS -->
+		<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Patrick+Hand&display=swap" rel="stylesheet">
+		
+		<link rel="stylesheet" href="assets/css/main.css" />
+		
 		<style>
+			/* --- SCRAPBOOK STYLES --- */
+			
+			/* Global Background - Paper Texture Look */
 			body {
-				background-color: #fcfaf2; 
+				background-color: #f4f1ea;
+				background-image: radial-gradient(#e6e2d3 1px, transparent 1px);
+				background-size: 20px 20px;
+			}
+			
+			/* Handwritten Fonts */
+			h1, h2, h3, h4, p, .handwritten {
+				font-family: 'Patrick Hand', cursive;
+			}
+			
+			h1 { font-family: 'Indie Flower', cursive; font-size: 3rem; }
+
+			/* Header Section */
+			#header {
+				background: transparent;
+				padding: 2rem;
+			}
+			#header video {
+				border: 8px solid white;
+				box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+				transform: rotate(-1deg);
+				border-radius: 3px;
 			}
 
-			/* Book Container with 3D Perspective */
-			.book-container {
-				width: 100%;
-				max-width: 850px;
-				height: 500px;
-				margin: 50px auto;
-				perspective: 1500px;
+			/* Polaroid Style Image Frame */
+			.polaroid {
+				background: #fff;
+				padding: 12px 12px 35px 12px;
+				box-shadow: 4px 6px 12px rgba(0,0,0,0.25);
+				transform: rotate(var(--rotation, 0deg));
+				transition: transform 0.3s ease;
+				position: relative;
+				display: inline-block;
+			}
+			.polaroid:hover {
+				transform: scale(1.02) rotate(0deg) !important;
+				z-index: 10;
+			}
+			
+			/* Tape Effect */
+			.tape {
+				position: absolute;
+				top: -15px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 80px;
+				height: 30px;
+				background-color: rgba(255, 255, 255, 0.4);
+				border-left: 1px solid rgba(255,255,255,0.2);
+				border-right: 1px solid rgba(255,255,255,0.2);
+				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+				/* Washi Tape Pattern (CSS only approximation) */
+				background: linear-gradient(to bottom, transparent 20%, rgba(255,200,200,0.6) 20%, rgba(255,200,200,0.6) 80%, transparent 80%);
+				backdrop-filter: blur(1px);
+				z-index: 5;
+			}
+			/* Yellow Sticky Note Style */
+			.sticky-note {
+				background: #fff9c4;
+				padding: 20px;
+				box-shadow: 2px 3px 8px rgba(0,0,0,0.15);
+				transform: rotate(-1deg);
 				position: relative;
 			}
-
-			.book {
-				width: 100%;
-				height: 100%;
-				position: relative;
-				transform-style: preserve-3d;
-				transition: transform 0.5s;
+			
+			/* Container Background */
+			#main {
+				background: transparent;
 			}
-
-			/* Individual Book Pages */
-			.page {
-				width: 50%;
-				height: 100%;
-				position: absolute;
-				top: 0;
-				right: 0;
-				transform-origin: left center;
-				transform-style: preserve-3d;
-				transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
-				z-index: 1;
-			}
-
-			/* Front and Back of each single folding leaf */
-			.front, .back {
-				width: 100%;
-				height: 100%;
-				position: absolute;
-				top: 0;
-				left: 0;
-				backface-visibility: hidden;
-				padding: 30px;
+			
+			/* Card Styling */
+			.box {
 				background: #ffffff;
-				box-shadow: inset 3px 0 20px rgba(0,0,0,0.05), 2px 4px 10px rgba(0,0,0,0.08);
-				border: 1px solid #efebe0;
-				overflow: hidden;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
+				border: 1px dashed #aaa;
+				box-shadow: none; /* Remove standard shadow for scrapbook feel */
 			}
 
-			.back {
-				transform: rotateY(180deg);
-			}
-
-			/* Page states for the flipping mechanism */
-			.page.flipped {
-				transform: rotateY(-180deg);
-			}
-
-			/* Z-indexing layers so pages stack properly when opening/closing */
-			#p1 { z-index: 4; }
-			#p2 { z-index: 3; }
-			#p3 { z-index: 2; }
-			#p4 { z-index: 1; }
-
-			/* Internal content styles to match your elements */
-			.page h3 {
-				font-family: 'Kalam', cursive;
-				font-weight: 700;
-				color: #4a3e3d;
-				font-size: 1.6rem;
-				margin-bottom: 15px;
-			}
-
-			.page p, .page ul {
-				font-family: 'Kalam', cursive;
-				font-weight: 400;
-				color: #5c5150;
-				font-size: 1.1rem;
-				line-height: 1.5;
-			}
-
-			/* Polaroid frames within pages */
-			.scrapbook-img {
-				background: #ffffff;
-				padding: 10px 10px 25px 10px;
-				box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.12);
-				border: 1px solid #e2ded5;
-				transform: rotate(-1.5deg);
-				max-width: 80%;
-				margin: 0 auto 15px auto;
-				display: block;
-			}
-
-			.scrapbook-img img {
-				width: 100%;
-				height: auto;
-				max-height: 200px;
-				object-fit: cover;
-			}
-
-			/* Navigation Controls underneath book */
-			.book-controls {
-				text-align: center;
-				margin-top: 30px;
-				margin-bottom: 60px;
-			}
-
-			.book-controls button {
-				font-family: 'Kalam', cursive;
-				background: #4a3e3d;
-				color: #fff !important;
-				border: none;
-				padding: 8px 25px;
-				margin: 0 10px;
-				cursor: pointer;
+			/* Feature Section Tweaks */
+			.feature {
+				padding: 20px;
+				margin-bottom: 30px;
 				border-radius: 4px;
-				font-size: 1.1rem;
-				box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-				transition: 0.2s;
+			}
+			/* Alternating decorations */
+			.feature.left { border-left: 4px solid #ffab91; padding-left: 30px; transform: rotate(0.5deg); }
+			.feature.right { border-right: 4px solid #81d4fa; padding-right: 30px; text-align: right; transform: rotate(-0.5deg); }
+			
+			.feature .content h3 {
+				font-family: 'Indie Flower', cursive;
+				border-bottom: 2px solid #eee;
+				display: inline-block;
+				padding-bottom: 5px;
 			}
 
-			.book-controls button:hover {
-				background: #6b5b59;
+			/* Info List Style */
+			header.major h2 {
+				font-family: 'Patrick Hand', cursive;
+				color: #4a4a4a;
 			}
 
-			/* Responsive Fix for small mobile viewports */
-			@media screen and (max-width: 768px) {
-				.book-container { height: auto; perspective: none; }
-				.book { transform-style: flat; }
-				.page { width: 100%; position: relative; transform: none !important; margin-bottom: 20px; }
-				.back { transform: none; position: relative; }
-				.front { position: relative; }
-				.book-controls { display: none; }
+			/* Footer */
+			#footer {
+				background-color: #fff;
+				border-top: 5px solid #ffab91;
 			}
 		</style>
 	</head>
 	<body class="is-preload">
 
 		<!-- Header -->
-			<div id="header">
-				<video width="700" controls muted>
-					<source src="vyniece.mp4" type="video/mp4">
-				</video>
+		<div id="header">
+			<video width="700" controls muted loop playsinline autoplay>
+				<source src="vyniece.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video>
+			
+			<div style="text-align: center; margin-top: 20px;">
 				<h1>Vyniece Kyle P. Austria</h1>
-				<p>A fresh Finance graduate with a strong interest in financial operations and business management. 
-				Excited to bring my energy, reliability, and curiosity into the professional world.</p>
+				<div class="sticky-note" style="display: inline-block; transform: rotate(1deg); max-width: 600px;">
+					<p style="font-size: 1.2rem; line-height: 1.4;">
+						A fresh Finance graduate with a strong interest in financial operations and business management. I enjoy working with others, staying organized, and learning new things that help me adapt in any environment. I’m excited to take the next step and bring my energy, reliability, and curiosity into the professional world.
+					</p>
+				</div>
 			</div>
+		</div>
 
 		<!-- Main -->
-			<div id="main">
+		<div id="main">
 
-				<header class="major container medium">
-					<h2>Personal Profile</h2>
-					<p style="font-family: 'Kalam', cursive; font-size: 1.3rem;">
-						📌 <strong>Birthdate:</strong> January 30, 2003 &nbsp;|&nbsp; 
-						🇵🇭 <strong>Nationality:</strong> Filipino &nbsp;|&nbsp; 
-						📍 <strong>Location:</strong> Davao City, Philippines
-					</p>
-				</header>
+			<header class="major container medium" style="text-align: center; margin-bottom: 40px;">
+				<div class="polaroid" style="--rotation: -1deg; transform: rotate(-1deg);">
+					<h2 style="margin: 0; padding: 10px; font-family: 'Patrick Hand', cursive; font-size: 2rem;">
+						About Me<br>
+						<span style="font-size: 1rem; color: #666;">
+							★ Jan 30, 2003 &nbsp; ★ Male &nbsp; ★ Single <br>
+							★ Filipino &nbsp; ★ Catholic
+						</span>
+					</h2>
+					<!-- Decorative Tape -->
+					<div class="tape" style="background-color: rgba(255, 255, 0, 0.5);"></div>
+				</div>
+			</header>
 
-				<!-- 3D Scrapbook / Flip Book Section -->
-				<div class="book-container">
-					<div id="book" class="book">
-						
-						<!-- PAGE 1: Cover / Education -->
-						<div id="p1" class="page">
-							<div class="front">
-								<div class="scrapbook-img">
-									<img src="images/toga.JPG" alt="Graduation Portrait" />
-								</div>
-								<h3>My Education Story</h3>
-								<p>Degree in Business Administration, major in Financial Management from Assumption College of Davao. Special Academic Award recipient.</p>
-							</div>
-							<div class="back">
-								<h3>Academic Focus</h3>
-								<p>Spent 2021–2025 building deep knowledge foundations in corporate finance models, strategic asset management, data validation, and modern banking ecosystems.</p>
-							</div>
-						</div>
-
-						<!-- PAGE 2: Awards & Highlights -->
-						<div id="p2" class="page">
-							<div class="front">
-								<div class="scrapbook-img">
-									<img src="images/me.JPG" alt="Awards" />
-								</div>
-								<h3>Awards &amp; Highlights</h3>
-								<ul style="list-style: none; padding-left: 0;">
-									<li>🏅 <strong>Dean’s Lister</strong> (2021–2025)</li>
-									<li>🥇 <strong>First Placer</strong> – Quiz Bowl (2024)</li>
-									<li>🏆 <strong>Champion</strong> – FB Wars (2024)</li>
-								</ul>
-							</div>
-							<div class="back">
-								<h3>Extracurriculars</h3>
-								<p>Participating in competitive quiz bowls and team challenges honed my quick analytical thinking, pressure management, and sharp operational collaboration execution.</p>
-							</div>
-						</div>
-
-						<!-- PAGE 3: Internship Experience -->
-						<div id="p3" class="page">
-							<div class="front">
-								<div class="scrapbook-img">
-									<img src="images/intern.JPG" alt="Internship" />
-								</div>
-								<h3>The Internship Days</h3>
-								<p>Supported operations at Enterprise Bank Inc. Managed client financial statements, balanced cross-office books, and optimized ledger integrity tracking.</p>
-							</div>
-							<div class="back">
-								<h3>Practical Outcomes</h3>
-								<p>Gained raw field exposure executing deep statement auditing, tracking branch reconciliation discrepancies, and translating field data pipelines into actionable management insights.</p>
-							</div>
-						</div>
-
-						<!-- PAGE 4: Professional Skills -->
-						<div id="p4" class="page">
-							<div class="front">
-								<div class="scrapbook-img">
-									<img src="images/barong.JPG" alt="Skills" />
-								</div>
-								<h3>My Top Skills</h3>
-								<ul style="list-style: none; padding-left: 0; font-size: 1rem;">
-									<li>💼 Statement Analysis &amp; Reconciliation</li>
-									<li>📊 Excel, Word, &amp; PowerPoint Productivity</li>
-									<li>⏱️ Strict Time Management &amp; Organization</li>
-									<li>🤝 Interpersonal Communication Matrix</li>
-								</ul>
-							</div>
-							<div class="back">
-								<h3>Let's Connect!</h3>
-								<p>Flip back through my journey anytime, or head down below to visit my direct corporate socials. Open to full-time growth tracks!</p>
-							</div>
-						</div>
-
+			<div class="box alt container">
+				
+				<!-- Education Section -->
+				<section class="feature left">
+					<!-- Note: Added rotation var for specific look in polaroid class -->
+					<div class="polaroid" style="--rotation: -2deg; margin: 0 auto; max-width: 100%;">
+						<div class="tape" style="background-color: rgba(200, 230, 255, 0.6);"></div>
+						<img src="images/toga.JPG" alt="Graduation" style="width: 100%; display: block;" />
 					</div>
-				</div>
+					<div class="content">
+						<h3>Education</h3>
+						<p>
+							<span style="font-family: 'Indie Flower'; font-size: 1.3rem;">Assumption College of Davao</span><br>
+							Bachelor of Science in Business Administration<br>
+							<em>Major in Financial Management</em>
+						</p>
+						<hr style="border-top: 1px dashed #ccc; margin: 10px 0;" />
+						<p>Graduated with a Special Academic Award.</p>
+					</div>
+				</section>
 
-				<!-- Navigation Buttons for the Book Elements -->
-				<div class="book-controls">
-					<button id="prev-btn">◀ Previous Page</button>
-					<button id="next-btn">Next Page ▶</button>
-				</div>
+				<!-- Awards Section -->
+				<section class="feature right">
+					<div class="polaroid" style="--rotation: 3deg; margin: 0 auto; max-width: 100%;">
+						<div class="tape" style="background-color: rgba(255, 200, 200, 0.6);"></div>
+						<img src="images/me.JPG" alt="Awards" style="width: 100%; display: block;" />
+					</div>
+					<div class="content">
+						<h3>Awards & Achievements</h3>
+						<ul style="list-style: none; padding: 0; font-family: 'Patrick Hand', cursive; font-size: 1.2rem;">
+							<li>🏆 Dean's Lister (2021-2025)</li>
+							<li>🥇 1st Place - Quiz Bowl (2024)</li>
+							<li>🥇 Champion - FB Wars (2024)</li>
+						</ul>
+					</div>
+				</section>
 
-				<!-- Call to Action -->
-				<footer class="major container medium">
-					<h3>Open to Opportunities</h3>
-					<p>Thank you for visiting my digital scrapbook! I am driven by continuous improvement. Let's connect to build exceptional financial frameworks together.</p>
-					<ul class="actions special">
-						<li><a href="https://www.linkedin.com/in/vyniece-kyle-austria-717619366/" class="button" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></li>
-					</ul>
-				</footer>
+				<!-- Experience Section -->
+				<section class="feature left">
+					<div class="polaroid" style="--rotation: -1.5deg; margin: 0 auto; max-width: 100%;">
+						<div class="tape" style="background-color: rgba(200, 255, 200, 0.6);"></div>
+						<img src="images/intern.JPG" alt="Internship" style="width: 100%; display: block;" />
+					</div>
+					<div class="content">
+						<h4>Pre-Professional Experience</h4>
+						<p style="font-weight: bold;">Enterprise Bank Inc. (Intern)</p>
+						<p>
+							During my internship, I supported financial operations by analyzing client financial statements, reconciling accounts, and performing data entry. This experience strengthened my skills in financial analysis, accuracy, and administrative efficiency.
+						</p>
+					</div>
+				</section>
 
-			</div>
-
-		<!-- Footer -->
-			<div id="footer">
-				<div class="container medium">
-					<p><strong>Email:</strong> vyniecekyle@gmail.com</p>
-					<ul class="icons">
-						<li><a href="https://www.facebook.com/VynieceKyleAustria" class="icon brands fa-facebook-f" target="_blank" rel="noopener noreferrer"><span class="label">Facebook</span></a></li>
-						<li><a href="https://www.instagram.com/austykyle/" class="icon brands fa-instagram" target="_blank" rel="noopener noreferrer"><span class="label">Instagram</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Vyniece Kyle P. Austria. All rights reserved.</li>
-					</ul>
-				</div>
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-			<!-- Interactive Flipbook Page Logic Script -->
-			<script>
-				const prevBtn = document.querySelector("#prev-btn");
-				const nextBtn = document.querySelector("#next-btn");
-				const book = document.querySelector("#book");
-
-				const paper1 = document.querySelector("#p1");
-				const paper2 = document.querySelector("#p2");
-				const paper3 = document.querySelector("#p3");
-				const paper4 = document.querySelector("#p4");
-
-				let currentLoc = 1;
-				let maxLocation = 5;
-
-				function openBook() {
-					book.style.transform = "translateX(25%)";
-				}
-
-				function closeBook(isAtStart) {
-					if(isAtStart) {
-						book.style.transform = "translateX(0%)";
-					} else {
-						book.style.transform = "translateX(50%)";
-					}
-				}
-
-				function goNextPage() {
-					if(currentLoc < maxLocation) {
-						switch(currentLoc) {
-							case 1:
-								openBook();
-								paper1.classList.add("flipped");
-								paper1.style.zIndex = 1;
-								break;
-							case 2:
-								paper2.classList.add("flipped");
-								paper2.style.zIndex = 2;
-								break;
-							case 3:
-								paper3.classList.add("flipped");
-								paper3.style.zIndex = 3;
-								break;
-							case 4:
-								paper4.classList.add("flipped");
-								paper4.style.zIndex = 4;
-								closeBook(false);
-								break;
-							default:
-								throw new Error("unknown state");
-						}
-						currentLoc++;
-					}
-				}
-
-				function goPrevPage() {
-					if(currentLoc > 1) {
-						switch(currentLoc) {
-							case 2:
-								closeBook(true);
-								paper1.classList.remove("flipped");
-								paper1.style.zIndex = 4;
-								break;
-							case 3:
-								paper2.classList.remove("flipped");
-								paper2.style.zIndex = 3;
-								break;
-							case 4:
-								paper3.classList.remove("flipped");
-								paper3.style.zIndex = 2;
-								break;
-							case 5:
-								openBook();
-								paper4.classList.remove("flipped");
-								paper4.style.zIndex = 1;
-								break;
-							default:
-								throw new Error("unknown state");
-						}
-						currentLoc--;
-					}
-				}
-
-				// Event Listeners
-				nextBtn.addEventListener("click", goNextPage);
-				prevBtn.addEventListener("click", goPrevPage);
-			</script>
-
-	</body>
-</html>
+				<!-- Skills Section -->
+				<section class="feature right">
+					<div class="polaroid" style="--rotation: 1deg; margin: 0 auto; max-width: 100%;">
+						<div class="tape" style="background-color: rgba(255, 255, 150, 0.6);"></div>
+						<img src="images/barong.JPG" alt="Skills" style="width: 100%; display: block;" />
+					</div>
+					<div class="content">
+						<h3
