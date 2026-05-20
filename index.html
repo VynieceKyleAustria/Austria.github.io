@@ -14,83 +14,147 @@
 		<!-- Google Fonts for the Scrapbook Vibe -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
 
-		<!-- Custom Scrapbook Styling Overrides -->
+		<!-- Custom Flip-Book and Scrapbook CSS -->
 		<style>
-			/* Give the main background a subtle paper-like warmth */
 			body {
 				background-color: #fcfaf2; 
 			}
 
-			/* Turn each feature section into a loose scrapbook card */
-			.feature {
-				background: #ffffff;
-				padding: 25px !important;
-				margin-bottom: 50px !important;
-				border-radius: 4px;
-				box-shadow: 3px 5px 15px rgba(0,0,0,0.08), 0 0 40px rgba(0,0,0,0.03) inset;
-				border: 1px solid #efebe0;
+			/* Book Container with 3D Perspective */
+			.book-container {
+				width: 100%;
+				max-width: 850px;
+				height: 500px;
+				margin: 50px auto;
+				perspective: 1500px;
 				position: relative;
 			}
 
-			/* Slight paper rotations to make it look scattered/hand-placed */
-			.feature.left {
-				transform: rotate(-1deg);
-			}
-			.feature.right {
-				transform: rotate(1.5deg);
+			.book {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				transform-style: preserve-3d;
+				transition: transform 0.5s;
 			}
 
-			/* Transform images into classic white-bordered Polaroid photos */
-			.feature .image.fit {
+			/* Individual Book Pages */
+			.page {
+				width: 50%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				right: 0;
+				transform-origin: left center;
+				transform-style: preserve-3d;
+				transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+				z-index: 1;
+			}
+
+			/* Front and Back of each single folding leaf */
+			.front, .back {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				backface-visibility: hidden;
+				padding: 30px;
 				background: #ffffff;
-				padding: 12px 12px 35px 12px; /* Thick bottom border like a polaroid */
-				box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
-				border: 1px solid #e2ded5;
-				margin-bottom: 20px;
-				display: inline-block;
+				box-shadow: inset 3px 0 20px rgba(0,0,0,0.05), 2px 4px 10px rgba(0,0,0,0.08);
+				border: 1px solid #efebe0;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 			}
 
-			/* Polaroid tilt variations */
-			.feature.left .image.fit { transform: rotate(2deg); }
-			.feature.right .image.fit { transform: rotate(-2.5deg); }
+			.back {
+				transform: rotateY(180deg);
+			}
 
-			/* Fonts for the scrapbook "handwritten notes" feel */
-			.feature h3 {
+			/* Page states for the flipping mechanism */
+			.page.flipped {
+				transform: rotateY(-180deg);
+			}
+
+			/* Z-indexing layers so pages stack properly when opening/closing */
+			#p1 { z-index: 4; }
+			#p2 { z-index: 3; }
+			#p3 { z-index: 2; }
+			#p4 { z-index: 1; }
+
+			/* Internal content styles to match your elements */
+			.page h3 {
 				font-family: 'Kalam', cursive;
 				font-weight: 700;
 				color: #4a3e3d;
-				letter-spacing: 0px;
-				text-transform: none;
-				font-size: 1.8rem;
+				font-size: 1.6rem;
+				margin-bottom: 15px;
 			}
 
-			.feature p, .feature ul {
+			.page p, .page ul {
 				font-family: 'Kalam', cursive;
 				font-weight: 400;
 				color: #5c5150;
-				font-size: 1.25rem;
-				line-height: 1.6;
+				font-size: 1.1rem;
+				line-height: 1.5;
 			}
 
-			/* "Washi Tape" effect pinned to the top of each card */
-			.feature::before {
-				content: "";
-				position: absolute;
-				top: -15px;
-				left: 40%;
-				width: 100px;
-				height: 30px;
-				background-color: rgba(210, 180, 140, 0.4); /* Translucent masking tape */
-				transform: rotate(-3deg);
-				box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+			/* Polaroid frames within pages */
+			.scrapbook-img {
+				background: #ffffff;
+				padding: 10px 10px 25px 10px;
+				box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.12);
+				border: 1px solid #e2ded5;
+				transform: rotate(-1.5deg);
+				max-width: 80%;
+				margin: 0 auto 15px auto;
+				display: block;
 			}
-			
-			.feature.right::before {
-				left: 45%;
-				background-color: rgba(176, 196, 222, 0.4); /* Alternating tape color */
-				transform: rotate(4deg);
+
+			.scrapbook-img img {
+				width: 100%;
+				height: auto;
+				max-height: 200px;
+				object-fit: cover;
+			}
+
+			/* Navigation Controls underneath book */
+			.book-controls {
+				text-align: center;
+				margin-top: 30px;
+				margin-bottom: 60px;
+			}
+
+			.book-controls button {
+				font-family: 'Kalam', cursive;
+				background: #4a3e3d;
+				color: #fff !important;
+				border: none;
+				padding: 8px 25px;
+				margin: 0 10px;
+				cursor: pointer;
+				border-radius: 4px;
+				font-size: 1.1rem;
+				box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+				transition: 0.2s;
+			}
+
+			.book-controls button:hover {
+				background: #6b5b59;
+			}
+
+			/* Responsive Fix for small mobile viewports */
+			@media screen and (max-width: 768px) {
+				.book-container { height: auto; perspective: none; }
+				.book { transform-style: flat; }
+				.page { width: 100%; position: relative; transform: none !important; margin-bottom: 20px; }
+				.back { transform: none; position: relative; }
+				.front { position: relative; }
+				.book-controls { display: none; }
 			}
 		</style>
 	</head>
@@ -100,11 +164,9 @@
 			<div id="header">
 				<video width="700" controls muted>
 					<source src="vyniece.mp4" type="video/mp4">
-					Your browser does not support the video tag.
 				</video>
 				<h1>Vyniece Kyle P. Austria</h1>
 				<p>A fresh Finance graduate with a strong interest in financial operations and business management. 
-				I enjoy working with others, staying organized, and learning new things to adapt to any environment. 
 				Excited to bring my energy, reliability, and curiosity into the professional world.</p>
 			</div>
 
@@ -120,59 +182,92 @@
 					</p>
 				</header>
 
-				<div class="box alt container">
-					
-					<!-- Education -->
-					<section class="feature left">
-						<a href="#" class="image fit"><img src="images/toga.JPG" alt="Graduation Portrait" /></a>
-						<div class="content">
-							<h3>My Education Story</h3>
-							<p>Holds a degree in Business Administration, major in Financial Management from the Assumption College of Davao. Graduated with a Special Academic Award, developing a strong foundation in corporate finance, asset management, and strategic planning.</p>
+				<!-- 3D Scrapbook / Flip Book Section -->
+				<div class="book-container">
+					<div id="book" class="book">
+						
+						<!-- PAGE 1: Cover / Education -->
+						<div id="p1" class="page">
+							<div class="front">
+								<div class="scrapbook-img">
+									<img src="images/toga.JPG" alt="Graduation Portrait" />
+								</div>
+								<h3>My Education Story</h3>
+								<p>Degree in Business Administration, major in Financial Management from Assumption College of Davao. Special Academic Award recipient.</p>
+							</div>
+							<div class="back">
+								<h3>Academic Focus</h3>
+								<p>Spent 2021–2025 building deep knowledge foundations in corporate finance models, strategic asset management, data validation, and modern banking ecosystems.</p>
+							</div>
 						</div>
-					</section>
 
-					<!-- Awards -->
-					<section class="feature right">
-						<a href="#" class="image fit"><img src="images/me.JPG" alt="Awards and Activities" /></a>
-						<div class="content">
-							<h3>Awards &amp; Highlights</h3>
-							<ul style="list-style: none; padding-left: 0; text-align: left;">
-								<li>🏅 <strong>Dean’s Lister</strong> (2021–2025)</li>
-								<li>🥇 <strong>First Placer</strong> – Quiz Bowl (2024)</li>
-								<li>🏆 <strong>Champion</strong> – FB Wars (2024)</li>
-							</ul>
+						<!-- PAGE 2: Awards & Highlights -->
+						<div id="p2" class="page">
+							<div class="front">
+								<div class="scrapbook-img">
+									<img src="images/me.JPG" alt="Awards" />
+								</div>
+								<h3>Awards &amp; Highlights</h3>
+								<ul style="list-style: none; padding-left: 0;">
+									<li>🏅 <strong>Dean’s Lister</strong> (2021–2025)</li>
+									<li>🥇 <strong>First Placer</strong> – Quiz Bowl (2024)</li>
+									<li>🏆 <strong>Champion</strong> – FB Wars (2024)</li>
+								</ul>
+							</div>
+							<div class="back">
+								<h3>Extracurriculars</h3>
+								<p>Participating in competitive quiz bowls and team challenges honed my quick analytical thinking, pressure management, and sharp operational collaboration execution.</p>
+							</div>
 						</div>
-					</section>
 
-					<!-- Experience -->
-					<section class="feature left">
-						<a href="#" class="image fit"><img src="images/intern.JPG" alt="Internship Experience" /></a>
-						<div class="content">
-							<h3>The Internship Days</h3>
-							<p>During my internship at Enterprise Bank Inc., I actively supported day-to-day financial operations. Key responsibilities included analyzing client financial statements, reconciling branch accounts with the head office, and handling data entry for critical internal reports—sharpening my administrative accuracy and analytical efficiency.</p>
+						<!-- PAGE 3: Internship Experience -->
+						<div id="p3" class="page">
+							<div class="front">
+								<div class="scrapbook-img">
+									<img src="images/intern.JPG" alt="Internship" />
+								</div>
+								<h3>The Internship Days</h3>
+								<p>Supported operations at Enterprise Bank Inc. Managed client financial statements, balanced cross-office books, and optimized ledger integrity tracking.</p>
+							</div>
+							<div class="back">
+								<h3>Practical Outcomes</h3>
+								<p>Gained raw field exposure executing deep statement auditing, tracking branch reconciliation discrepancies, and translating field data pipelines into actionable management insights.</p>
+							</div>
 						</div>
-					</section>
 
-					<!-- Skills -->
-					<section class="feature right">
-						<a href="#" class="image fit"><img src="images/barong.JPG" alt="Professional Attire" /></a>
-						<div class="content">
-							<h3>My Top Skills</h3>
-							<ul style="list-style: none; padding-left: 0; text-align: left;">
-								<li>💼 Financial Statement Analysis &amp; Reconciliation</li>
-								<li>📊 Proficient in MS Office (Excel, Word, PowerPoint)</li>
-								<li>⏱️ Time Management &amp; Workplace Organization</li>
-								<li>🤝 Team Collaboration &amp; Interpersonal Communication</li>
-								<li>🌱 Highly Adaptable to Dynamic Environments</li>
-							</ul>
+						<!-- PAGE 4: Professional Skills -->
+						<div id="p4" class="page">
+							<div class="front">
+								<div class="scrapbook-img">
+									<img src="images/barong.JPG" alt="Skills" />
+								</div>
+								<h3>My Top Skills</h3>
+								<ul style="list-style: none; padding-left: 0; font-size: 1rem;">
+									<li>💼 Statement Analysis &amp; Reconciliation</li>
+									<li>📊 Excel, Word, &amp; PowerPoint Productivity</li>
+									<li>⏱️ Strict Time Management &amp; Organization</li>
+									<li>🤝 Interpersonal Communication Matrix</li>
+								</ul>
+							</div>
+							<div class="back">
+								<h3>Let's Connect!</h3>
+								<p>Flip back through my journey anytime, or head down below to visit my direct corporate socials. Open to full-time growth tracks!</p>
+							</div>
 						</div>
-					</section>
+
+					</div>
+				</div>
+
+				<!-- Navigation Buttons for the Book Elements -->
+				<div class="book-controls">
+					<button id="prev-btn">◀ Previous Page</button>
+					<button id="next-btn">Next Page ▶</button>
 				</div>
 
 				<!-- Call to Action -->
 				<footer class="major container medium">
 					<h3>Open to Opportunities</h3>
-					<p>Thank you for visiting my portfolio! I am driven by growth, continuous learning, and collaborative success. I am eager to connect and explore how my financial skills and dedication can contribute value to your team.</p>
+					<p>Thank you for visiting my digital scrapbook! I am driven by continuous improvement. Let's connect to build exceptional financial frameworks together.</p>
 					<ul class="actions special">
 						<li><a href="https://www.linkedin.com/in/vyniece-kyle-austria-717619366/" class="button" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></li>
 					</ul>
@@ -183,19 +278,14 @@
 		<!-- Footer -->
 			<div id="footer">
 				<div class="container medium">
-
 					<p><strong>Email:</strong> vyniecekyle@gmail.com</p>
-					
 					<ul class="icons">
-						<li><a href="https://x.com/VynieceA" class="icon brands fa-twitter" target="_blank" rel="noopener noreferrer"><span class="label">Twitter</span></a></li>
 						<li><a href="https://www.facebook.com/VynieceKyleAustria" class="icon brands fa-facebook-f" target="_blank" rel="noopener noreferrer"><span class="label">Facebook</span></a></li>
 						<li><a href="https://www.instagram.com/austykyle/" class="icon brands fa-instagram" target="_blank" rel="noopener noreferrer"><span class="label">Instagram</span></a></li>
 					</ul>
-					
 					<ul class="copyright">
 						<li>&copy; Vyniece Kyle P. Austria. All rights reserved.</li>
 					</ul>
-
 				</div>
 			</div>
 
@@ -205,6 +295,93 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+
+			<!-- Interactive Flipbook Page Logic Script -->
+			<script>
+				const prevBtn = document.querySelector("#prev-btn");
+				const nextBtn = document.querySelector("#next-btn");
+				const book = document.querySelector("#book");
+
+				const paper1 = document.querySelector("#p1");
+				const paper2 = document.querySelector("#p2");
+				const paper3 = document.querySelector("#p3");
+				const paper4 = document.querySelector("#p4");
+
+				let currentLoc = 1;
+				let maxLocation = 5;
+
+				function openBook() {
+					book.style.transform = "translateX(25%)";
+				}
+
+				function closeBook(isAtStart) {
+					if(isAtStart) {
+						book.style.transform = "translateX(0%)";
+					} else {
+						book.style.transform = "translateX(50%)";
+					}
+				}
+
+				function goNextPage() {
+					if(currentLoc < maxLocation) {
+						switch(currentLoc) {
+							case 1:
+								openBook();
+								paper1.classList.add("flipped");
+								paper1.style.zIndex = 1;
+								break;
+							case 2:
+								paper2.classList.add("flipped");
+								paper2.style.zIndex = 2;
+								break;
+							case 3:
+								paper3.classList.add("flipped");
+								paper3.style.zIndex = 3;
+								break;
+							case 4:
+								paper4.classList.add("flipped");
+								paper4.style.zIndex = 4;
+								closeBook(false);
+								break;
+							default:
+								throw new Error("unknown state");
+						}
+						currentLoc++;
+					}
+				}
+
+				function goPrevPage() {
+					if(currentLoc > 1) {
+						switch(currentLoc) {
+							case 2:
+								closeBook(true);
+								paper1.classList.remove("flipped");
+								paper1.style.zIndex = 4;
+								break;
+							case 3:
+								paper2.classList.remove("flipped");
+								paper2.style.zIndex = 3;
+								break;
+							case 4:
+								paper3.classList.remove("flipped");
+								paper3.style.zIndex = 2;
+								break;
+							case 5:
+								openBook();
+								paper4.classList.remove("flipped");
+								paper4.style.zIndex = 1;
+								break;
+							default:
+								throw new Error("unknown state");
+						}
+						currentLoc--;
+					}
+				}
+
+				// Event Listeners
+				nextBtn.addEventListener("click", goNextPage);
+				prevBtn.addEventListener("click", goPrevPage);
+			</script>
 
 	</body>
 </html>
